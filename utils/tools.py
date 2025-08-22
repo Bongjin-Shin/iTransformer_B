@@ -26,13 +26,13 @@ def adjust_learning_rate(optimizer, epoch, args):
 
 class EarlyStopping:
     def __init__(self, patience=7, verbose=False, delta=0):
-        self.patience = patience
-        self.verbose = verbose
-        self.counter = 0
-        self.best_score = None
-        self.early_stop = False
-        self.val_loss_min = np.Inf
-        self.delta = delta
+        self.patience = patience  # 조기 중단을 위한 허용 에폭 수
+        self.verbose = verbose  # 중단 시 메시지를 출력할지 여부
+        self.counter = 0  # 중단 카운터
+        self.best_score = None  # 최고 점수 초기화
+        self.early_stop = False  # 조기 중단 여부
+        self.val_loss_min = np.inf  # 최소 검증 loss 초기화
+        self.delta = delta  # 최소 개선 허용 범위 
 
     def __call__(self, val_loss, model, path):
         score = -val_loss

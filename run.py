@@ -4,6 +4,22 @@ from experiments.exp_long_term_forecasting import Exp_Long_Term_Forecast
 from experiments.exp_long_term_forecasting_partial import Exp_Long_Term_Forecast_Partial
 import random
 import numpy as np
+import time
+import matplotlib.pyplot as plt
+
+def plot_losses(train_losses, val_losses, test_losses, save_path='loss_curve.png'):
+    plt.figure(figsize=(10, 6))
+    plt.plot(train_losses, label='Train Loss', marker='o')
+    plt.plot(val_losses, label='Validation Loss', marker='x')
+    plt.plot(test_losses, label='Test Loss', marker='s')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss (MSE)')
+    plt.title('Training / Validation / Test Loss')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(save_path)
+    plt.close()
 
 if __name__ == '__main__':
     fix_seed = 2023
@@ -88,7 +104,7 @@ if __name__ == '__main__':
                                                                            'you can select [partial_start_index, min(enc_in + partial_start_index, N)]')
 
     args = parser.parse_args()
-    args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
+    # args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
 
     if args.use_gpu and args.use_multi_gpu:
         args.devices = args.devices.replace(' ', '')
@@ -100,8 +116,10 @@ if __name__ == '__main__':
     print(args)
 
     if args.exp_name == 'partial_train': # See Figure 8 of our paper, for the detail
+        print(f'배치로 학습')
         Exp = Exp_Long_Term_Forecast_Partial
     else: # MTSF: multivariate time series forecasting
+        print(f'전체 학습')
         Exp = Exp_Long_Term_Forecast
 
 
@@ -129,7 +147,19 @@ if __name__ == '__main__':
 
             exp = Exp(args)  # set experiments
             print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>'.format(setting))
-            exp.train(setting)
+            #####################################################################################################################
+            start_time = time.time()
+            print(f'트레이닝 시작 : {start_time}')
+            #####################################################################################################################
+            exp.train(setting) # training start
+            plot_losses(exp.train_losses, exp.vali_losses, exp.test_losses, save_path=f'{setting}_loss_curve.png')
+
+            #####################################################################################################################
+            end_time = time.time()
+            print(f'트레이닝 끝 : {end_time}')
+            elapsed_time = end_time - start_time
+            print(f'트레이닝 총 소요 시간 : {elapsed_time:.2f} seconds ')
+            #####################################################################################################################
 
             print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
             exp.test(setting)

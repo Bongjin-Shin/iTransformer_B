@@ -21,6 +21,9 @@ warnings.filterwarnings('ignore')
 class Exp_Long_Term_Forecast_Partial(Exp_Basic):
     def __init__(self, args):
         super(Exp_Long_Term_Forecast_Partial, self).__init__(args)
+        self.train_losses = []
+        self.vali_losses = []
+        self.test_losses = []
 
     def _build_model(self):
         model = self.model_dict[self.args.model].Model(self.args).float()
@@ -221,6 +224,9 @@ class Exp_Long_Term_Forecast_Partial(Exp_Basic):
             train_loss = np.average(train_loss)
             vali_loss = self.vali(vali_data, vali_loader, criterion, partial_train=True)
             test_loss = self.vali(test_data, test_loader, criterion, partial_train=False)
+            self.train_losses.append(train_loss)
+            self.vali_losses.append(vali_loss)
+            self.test_losses.append(test_loss)
 
             print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} Test Loss: {4:.7f}".format(
                 epoch + 1, train_steps, train_loss, vali_loss, test_loss))
