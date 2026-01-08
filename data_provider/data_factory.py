@@ -1,5 +1,5 @@
 from data_provider.data_loader import Dataset_ETT_hour, Dataset_ETT_minute, Dataset_Custom, Dataset_Solar, Dataset_PEMS, \
-    Dataset_Pred
+    Dataset_Pred, Dataset_CMAPSS, Dataset_CMAPSS_Expanding
 from torch.utils.data import DataLoader
 
 data_dict = {
@@ -10,6 +10,8 @@ data_dict = {
     'Solar': Dataset_Solar,
     'PEMS': Dataset_PEMS,
     'custom': Dataset_Custom,
+    'CMAPSS': Dataset_CMAPSS,
+    'CMAPSS_Expanding': Dataset_CMAPSS_Expanding,
 }
 
 
@@ -34,17 +36,53 @@ def data_provider(args, flag):
         batch_size = args.batch_size  # bsz for train and valid
         freq = args.freq
 
-    data_set = Data(
-        root_path=args.root_path,
-        data_path=args.data_path,
-        flag=flag,
-        size=[args.seq_len, args.label_len, args.pred_len],
-        features=args.features,
-        target=args.target,
-        timeenc=timeenc,
-        freq=freq,
-    )
+    if args.data == 'CMAPSS':
+        data_set = Data(
+            root_path=args.root_path,
+            data_path=args.data_path,
+            flag=flag,
+            size=[args.seq_len, args.label_len, args.pred_len],
+            features=args.features,
+            target=args.target,
+            timeenc=timeenc,
+            freq=freq,
+            train_limit=getattr(args, 'train_limit', 100),
+        )
+    elif args.data == 'CMAPSS_Expanding':
+        data_set = Data(
+            root_path=args.root_path,
+            data_path=args.data_path,
+            flag=flag,
+            size=[args.seq_len, args.label_len, args.pred_len],
+            features=args.features,
+            target=args.target,
+            timeenc=timeenc,
+            freq=freq,
+            train_limit=getattr(args, 'train_limit', 100),
+            init_seq_len=getattr(args, 'init_seq_len', 48),
+            max_seq_len=getattr(args, 'max_seq_len', 200),
+            sliding_step=getattr(args, 'sliding_step', 1),
+        )
+    else:
+        data_set = Data(
+            root_path=args.root_path,
+            data_path=args.data_path,
+            flag=flag,
+            size=[args.seq_len, args.label_len, args.pred_len],
+            features=args.features,
+            target=args.target,
+            timeenc=timeenc,
+            freq=freq,
+        )
     print(flag, len(data_set))
+    
+    # CMAPSS_Expanding uses variable-length sequences (no padding)
+    # Force batch_size=1 to avoid collation issues
+    if args.data == 'CMAPSS_Expanding':
+        if batch_size != 1:
+            print(f"[Warning] CMAPSS_Expanding uses variable-length sequences. Forcing batch_size=1 (was {batch_size})")
+            batch_size = 1
+    
     data_loader = DataLoader(
         data_set,
         batch_size=batch_size,

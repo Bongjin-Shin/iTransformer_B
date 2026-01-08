@@ -98,6 +98,20 @@ if __name__ == '__main__':
     parser.add_argument('--class_strategy', type=str, default='projection', help='projection/average/cls_token')
     parser.add_argument('--target_root_path', type=str, default='./data/electricity/', help='root path of the data file')
     parser.add_argument('--target_data_path', type=str, default='electricity.csv', help='data file')
+
+    # CMAPSS Progressive
+    parser.add_argument('--step_size', type=int, default=10, help='progressive input length step size')
+    parser.add_argument('--start_seq_len', type=int, default=10, help='progressive start sequence length')
+    parser.add_argument('--max_input_len', type=int, default=100, help='progressive max input length limit')
+    
+    # CMAPSS Standard
+    parser.add_argument('--train_limit', type=int, default=100, help='CMAPSS train limit per engine')
+    
+    # CMAPSS Expanding (Dynamic Lookback Window)
+    parser.add_argument('--init_seq_len', type=int, default=48, help='initial sequence length for expanding window')
+    parser.add_argument('--max_seq_len', type=int, default=200, help='maximum sequence length for expanding window')
+    parser.add_argument('--sliding_step', type=int, default=1, help='sliding step for expanding window')
+    
     parser.add_argument('--efficient_training', type=bool, default=False, help='whether to use efficient_training (exp_name should be partial train)') # See Figure 8 of our paper for the detail
     parser.add_argument('--use_norm', type=int, default=True, help='use norm and denorm')
     parser.add_argument('--partial_start_index', type=int, default=0, help='the start index of variates for partial training, '
@@ -147,10 +161,10 @@ if __name__ == '__main__':
 
             exp = Exp(args)  # set experiments
             print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>'.format(setting))
-            #####################################################################################################################
+            #######################################[ 시작 ]############################################
             start_time = time.time()
             print(f'트레이닝 시작 : {start_time}')
-            #####################################################################################################################
+            #######################################[ 끝 ]##############################################
             exp.train(setting) # training start
             plot_losses(exp.train_losses, exp.vali_losses, exp.test_losses, save_path=f'{setting}_loss_curve.png')
 
