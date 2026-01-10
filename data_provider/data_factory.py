@@ -1,5 +1,5 @@
 from data_provider.data_loader import Dataset_ETT_hour, Dataset_ETT_minute, Dataset_Custom, Dataset_Solar, Dataset_PEMS, \
-    Dataset_Pred, Dataset_CMAPSS, Dataset_CMAPSS_Expanding
+    Dataset_Pred, Dataset_CMAPSS, Dataset_CMAPSS_NormalOnly
 from torch.utils.data import DataLoader
 
 data_dict = {
@@ -11,7 +11,7 @@ data_dict = {
     'PEMS': Dataset_PEMS,
     'custom': Dataset_Custom,
     'CMAPSS': Dataset_CMAPSS,
-    'CMAPSS_Expanding': Dataset_CMAPSS_Expanding,
+    'CMAPSS_Normal': Dataset_CMAPSS_NormalOnly,
 }
 
 
