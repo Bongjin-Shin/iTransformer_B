@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # --- 1. 데이터 로딩 및 준비 ---
 data_type = 'Weather'  # 'ETT' 또는 'Weather' 중 선택
-base_path = './results/weather_96_96_iTransformer_custom_M_ft96_sl48_ll96_pl512_dm8_nh3_el1_dl512_df1_fctimeF_ebTrue_dtExp_projection_0/'
+base_path = './results/A-3_seq96_pred96_iTransformer_NPY_S_ft96_sl48_ll96_pl512_dm8_nh3_el1_dl512_df1_fctimeF_ebTrue_dtExp_projection_0/'
 
 # trues.npy만 사용
 trues = np.load(base_path + 'true.npy')
@@ -16,7 +16,7 @@ input_length = 96
 prediction_length = window_size
 
 # 분석할 채널을 선택 (예: 마지막 채널)
-channel = -1
+channel = 0
 
 # '실제 미래값(trues)'들을 이어붙여 전체 타임라인의 실제값(Ground Truth)을 재구성
 if num_indices > 1:

@@ -3,7 +3,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 # CSV 파일 경로
-file_path = "/home/bongja/GitHub_Code/iTransformer/dataset/weather/weather.csv"
+file_path = "/home/bongja/GitHub_Code/iTransformer/dataset/Battery/B0005_discharge_detailed.csv"
 
 # 1. CSV 불러오기
 df = pd.read_csv(file_path)

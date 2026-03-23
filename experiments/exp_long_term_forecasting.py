@@ -14,6 +14,65 @@ warnings.filterwarnings('ignore')
 
 
 class Exp_Long_Term_Forecast(Exp_Basic):
+    def validate_and_save(self, setting):
+        """
+        Run validation set through the model and save pred.npy, true.npy, metrics.npy in ./results/{setting}/
+        """
+        vali_data, vali_loader = self._get_data(flag='val')
+        self.model.eval()
+        preds = []
+        trues = []
+        with torch.no_grad():
+            for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(vali_loader):
+                batch_x = batch_x.float().to(self.device)
+                batch_y = batch_y.float().to(self.device)
+                if 'PEMS' in self.args.data or 'Solar' in self.args.data:
+                    batch_x_mark = None
+                    batch_y_mark = None
+                else:
+                    batch_x_mark = batch_x_mark.float().to(self.device)
+                    batch_y_mark = batch_y_mark.float().to(self.device)
+
+                dec_inp = torch.zeros_like(batch_y[:, -self.args.pred_len:, :]).float()
+                dec_inp = torch.cat([batch_y[:, :self.args.label_len, :], dec_inp], dim=1).float().to(self.device)
+                if self.args.use_amp:
+                    with torch.cuda.amp.autocast():
+                        if self.args.output_attention:
+                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
+                        else:
+                            outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                else:
+                    if self.args.output_attention:
+                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
+                    else:
+                        outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+
+                f_dim = -1 if self.args.features == 'MS' else 0
+                outputs = outputs[:, -self.args.pred_len:, f_dim:]
+                batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
+                outputs = outputs.detach().cpu().numpy()
+                batch_y = batch_y.detach().cpu().numpy()
+                if vali_data.scale and self.args.inverse:
+                    shape = outputs.shape
+                    outputs = vali_data.inverse_transform(outputs.squeeze(0)).reshape(shape)
+                    batch_y = vali_data.inverse_transform(batch_y.squeeze(0)).reshape(shape)
+                # 배치 차원별로 하나씩 append (test set 저장 방식과 동일)
+                for b in range(outputs.shape[0]):
+                    preds.append(outputs[b])
+                    trues.append(batch_y[b])
+        preds = np.array(preds)
+        trues = np.array(trues)
+        preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
+        trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
+        mae, mse, rmse, mape, mspe = metric(preds, trues)
+        folder_path = './results/' + setting + '/'
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        np.save(folder_path + 'val_metrics.npy', np.array([mae, mse, rmse, mape, mspe]))
+        np.save(folder_path + 'val_pred.npy', preds)
+        np.save(folder_path + 'val_true.npy', trues)
+        print(f'Validation results saved to {folder_path}')
+
     def __init__(self, args):
         super(Exp_Long_Term_Forecast, self).__init__(args)
         self.train_losses = []
@@ -187,6 +246,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         best_model_path = path + '/' + 'checkpoint.pth'
         self.model.load_state_dict(torch.load(best_model_path))
 
+        # After training, save validation set results
+        self.validate_and_save(setting)
         return self.model
 
     def test(self, setting, test=0):

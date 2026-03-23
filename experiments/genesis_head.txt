@@ -1,0 +1,5 @@
+MotorData.ActCurrent,MotorData.ActPosition,MotorData.ActSpeed,MotorData.IsAcceleration,MotorData.IsForce,MotorData.Motor_Pos1reached,MotorData.Motor_Pos2reached,MotorData.Motor_Pos3reached,MotorData.Motor_Pos4reached,NVL_Recv_Ind.GL_Metall,NVL_Recv_Ind.GL_NonMetall,NVL_Recv_Storage.GL_I_ProcessStarted,NVL_Recv_Storage.GL_I_Slider_IN,NVL_Recv_Storage.GL_I_Slider_OUT,NVL_Recv_Storage.GL_LightBarrier,NVL_Send_Storage.ActivateStorage,PLC_PRG.Gripper,PLC_PRG.MaterialIsMetal,Label
+-5,268975,0,0,-1,0,0,0,0,0,1,0,1,0,1,0,0,0,0
+0,268975,0,0,-1,0,0,0,0,0,1,0,1,0,1,0,0,0,0
+-5,268975,0,0,-3,0,0,0,0,0,1,0,1,0,1,0,0,0,0
+0,268975,0,0,4,0,0,0,0,0,1,0,1,0,1,0,0,0,0

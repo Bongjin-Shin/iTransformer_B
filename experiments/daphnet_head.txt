@@ -1,0 +1,5 @@
+ankle_horiz_fwd,ankle_vert,ankle_horiz_lateral,leg_horiz_fwd,leg_vert,leg_horiz_lateral,trunk_horiz_fwd,trunk_vert,trunk_horiz_lateral,Label
+40,39,-940,0,0,0,0,0,0,0
+40,39,-940,0,0,0,0,0,0,0
+50,29,-940,0,0,0,0,0,0,0
+50,29,-940,0,0,0,0,0,0,0

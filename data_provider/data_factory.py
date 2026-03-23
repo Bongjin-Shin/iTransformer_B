@@ -1,5 +1,6 @@
-from data_provider.data_loader import Dataset_ETT_hour, Dataset_ETT_minute, Dataset_Custom, Dataset_Solar, Dataset_PEMS, \
-    Dataset_Pred, Dataset_CMAPSS, Dataset_CMAPSS_NormalOnly
+from data_provider.data_loader import (Dataset_ETT_hour, Dataset_ETT_minute, Dataset_Custom, Dataset_Solar, Dataset_PEMS, 
+    Dataset_Pred, Dataset_CMAPSS, Dataset_CMAPSS_NormalOnly, Dataset_NPY, Dataset_GECCO, Dataset_PSM, Dataset_Genesis, 
+    Dataset_Daphnet, Dataset_SWaT1, Dataset_SWaT2, Dataset_CreditCard)
 from torch.utils.data import DataLoader
 
 data_dict = {
@@ -12,6 +13,14 @@ data_dict = {
     'custom': Dataset_Custom,
     'CMAPSS': Dataset_CMAPSS,
     'CMAPSS_Normal': Dataset_CMAPSS_NormalOnly,
+    'NPY': Dataset_NPY,
+    'GECCO': Dataset_GECCO,
+    'PSM': Dataset_PSM,
+    'Genesis': Dataset_Genesis,
+    'Daphnet': Dataset_Daphnet,
+    'SWaT1': Dataset_SWaT1,
+    'SWaT2': Dataset_SWaT2,
+    'CreditCard': Dataset_CreditCard,
 }
 
 

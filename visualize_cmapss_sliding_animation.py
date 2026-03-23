@@ -24,7 +24,7 @@ import sys
 # ============================================================
 # Direct configuration for seq_len and pred_len
 SEQ_LEN = 48      # lookback window size
-PRED_LEN = 12     # prediction length
+PRED_LEN = 48     # prediction length
 
 # Sensor names (excluded: s1, s5, s6, s10, s16, s18, s19)
 SENSOR_NAMES = ['s2', 's3', 's4', 's7', 's8', 's9', 's11', 's12', 's13', 's14', 's15', 's17', 's20', 's21']
@@ -482,7 +482,13 @@ def main():
     print("=" * 60)
     
     # 결과 경로 찾기 (seq_len과 pred_len으로 구분)
-    result_path = find_result_path(SEQ_LEN, PRED_LEN)
+    # 기존
+    # result_path = find_result_path(SEQ_LEN, PRED_LEN)
+    
+    # 절대 경로
+    folder_name = "100_train_FD001_seq48_pred48_iTransformer_CMAPSS_Normal_M_ft48_sl24_ll48_pl512_dm8_nh3_el1_dl512_df1_fctimeF_ebTrue_dtExp_projection_0"
+    result_path = os.path.join('./results/', folder_name)
+
     if result_path is None:
         return
     
@@ -503,7 +509,7 @@ def main():
         print(f"  - 엔진 {eid}: {engine_info[eid]['length']}행")
     
     # 출력 파일명
-    output_filename = f"engine{test_engine_ids[ENGINE_INDEX]}_seq{SEQ_LEN}_pred{PRED_LEN}_{SENSOR_NAMES[CHANNEL]}.gif"
+    output_filename = f"100_engine{test_engine_ids[ENGINE_INDEX]}_seq{SEQ_LEN}_pred{PRED_LEN}_{SENSOR_NAMES[CHANNEL]}.gif"
     output_path = os.path.join(OUTPUT_DIR, output_filename)
     
     # 애니메이션 생성

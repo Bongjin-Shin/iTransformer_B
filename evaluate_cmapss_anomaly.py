@@ -1,3 +1,5 @@
+"""Threshold 거는 시각화 코드"""
+
 #!/usr/bin/env python3
 """
 C-MAPSS Anomaly Detection based on Prediction Error
@@ -22,7 +24,7 @@ from scipy.ndimage import uniform_filter1d
 SEQ_LEN = 48           # Lookback window size
 PRED_LEN = 48          # Prediction length
 CHANNEL = 13           # Sensor index to analyze (0-13)
-ENGINE_INDEX = 18       # Test engine index (0-19 → engines 81-100)
+ENGINE_INDEX = 1       # Test engine index (0-19 → engines 81-100)
 
 # Threshold settings
 GRADIENT_THRESHOLD = 1.0    # Gradient threshold for warning

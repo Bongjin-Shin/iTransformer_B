@@ -140,3 +140,5 @@ results/
 training_loss/
 *.pth
 checkpoints/
+
+*.mp4

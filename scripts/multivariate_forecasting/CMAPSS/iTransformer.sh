@@ -10,48 +10,48 @@ model_name=iTransformer
 # ============================================================
 
 # 1-1. seq_len=12, pred_len=48
-python -u run.py \
-  --is_training 1 \
-  --root_path ./dataset/CMAPSSData/ \
-  --data_path train_FD001_with_columns.csv \
-  --model_id train_FD001_seq12_pred48 \
-  --model $model_name \
-  --data CMAPSS \
-  --features M \
-  --seq_len 12 \
-  --label_len 6 \
-  --pred_len 48 \
-  --e_layers 3 \
-  --enc_in 14 \
-  --dec_in 14 \
-  --c_out 14 \
-  --des 'Exp' \
-  --d_model 512 \
-  --d_ff 512 \
-  --train_limit 100 \
-  --itr 1
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/CMAPSSData/ \
+#   --data_path train_FD001_with_columns.csv \
+#   --model_id train_FD001_seq12_pred48 \
+#   --model $model_name \
+#   --data CMAPSS \
+#   --features M \
+#   --seq_len 12 \
+#   --label_len 6 \
+#   --pred_len 48 \
+#   --e_layers 3 \
+#   --enc_in 14 \
+#   --dec_in 14 \
+#   --c_out 14 \
+#   --des 'Exp' \
+#   --d_model 512 \
+#   --d_ff 512 \
+#   --train_limit 100 \
+#   --itr 1
 
-# 1-2. seq_len=24, pred_len=48
-python -u run.py \
-  --is_training 1 \
-  --root_path ./dataset/CMAPSSData/ \
-  --data_path train_FD001_with_columns.csv \
-  --model_id train_FD001_seq24_pred48 \
-  --model $model_name \
-  --data CMAPSS \
-  --features M \
-  --seq_len 24 \
-  --label_len 12 \
-  --pred_len 48 \
-  --e_layers 3 \
-  --enc_in 14 \
-  --dec_in 14 \
-  --c_out 14 \
-  --des 'Exp' \
-  --d_model 512 \
-  --d_ff 512 \
-  --train_limit 100 \
-  --itr 1
+# # 1-2. seq_len=24, pred_len=48
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/CMAPSSData/ \
+#   --data_path train_FD001_with_columns.csv \
+#   --model_id train_FD001_seq24_pred48 \
+#   --model $model_name \
+#   --data CMAPSS \
+#   --features M \
+#   --seq_len 24 \
+#   --label_len 12 \
+#   --pred_len 48 \
+#   --e_layers 3 \
+#   --enc_in 14 \
+#   --dec_in 14 \
+#   --c_out 14 \
+#   --des 'Exp' \
+#   --d_model 512 \
+#   --d_ff 512 \
+#   --train_limit 100 \
+#   --itr 1
 
 # 1-3. seq_len=48, pred_len=48
 python -u run.py \
@@ -77,67 +77,67 @@ python -u run.py \
 
 # ============================================================
 # 2-1. seq_len=12, pred_len=12
-python -u run.py \
-  --is_training 1 \
-  --root_path ./dataset/CMAPSSData/ \
-  --data_path train_FD001_with_columns.csv \
-  --model_id train_FD001_seq12_pred48 \
-  --model $model_name \
-  --data CMAPSS \
-  --features M \
-  --seq_len 12 \
-  --label_len 6 \
-  --pred_len 12 \
-  --e_layers 3 \
-  --enc_in 14 \
-  --dec_in 14 \
-  --c_out 14 \
-  --des 'Exp' \
-  --d_model 512 \
-  --d_ff 512 \
-  --train_limit 100 \
-  --itr 1
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/CMAPSSData/ \
+#   --data_path train_FD001_with_columns.csv \
+#   --model_id train_FD001_seq12_pred48 \
+#   --model $model_name \
+#   --data CMAPSS \
+#   --features M \
+#   --seq_len 12 \
+#   --label_len 6 \
+#   --pred_len 12 \
+#   --e_layers 3 \
+#   --enc_in 14 \
+#   --dec_in 14 \
+#   --c_out 14 \
+#   --des 'Exp' \
+#   --d_model 512 \
+#   --d_ff 512 \
+#   --train_limit 100 \
+#   --itr 1
 
-# 2-2. seq_len=24, pred_len=12
-python -u run.py \
-  --is_training 1 \
-  --root_path ./dataset/CMAPSSData/ \
-  --data_path train_FD001_with_columns.csv \
-  --model_id train_FD001_seq24_pred48 \
-  --model $model_name \
-  --data CMAPSS \
-  --features M \
-  --seq_len 24 \
-  --label_len 12 \
-  --pred_len 12 \
-  --e_layers 3 \
-  --enc_in 14 \
-  --dec_in 14 \
-  --c_out 14 \
-  --des 'Exp' \
-  --d_model 512 \
-  --d_ff 512 \
-  --train_limit 100 \
-  --itr 1
+# # 2-2. seq_len=24, pred_len=12
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/CMAPSSData/ \
+#   --data_path train_FD001_with_columns.csv \
+#   --model_id train_FD001_seq24_pred48 \
+#   --model $model_name \
+#   --data CMAPSS \
+#   --features M \
+#   --seq_len 24 \
+#   --label_len 12 \
+#   --pred_len 12 \
+#   --e_layers 3 \
+#   --enc_in 14 \
+#   --dec_in 14 \
+#   --c_out 14 \
+#   --des 'Exp' \
+#   --d_model 512 \
+#   --d_ff 512 \
+#   --train_limit 100 \
+#   --itr 1
 
-# 2-3. seq_len=48, pred_len=12
-python -u run.py \
-  --is_training 1 \
-  --root_path ./dataset/CMAPSSData/ \
-  --data_path train_FD001_with_columns.csv \
-  --model_id train_FD001_seq48_pred48 \
-  --model $model_name \
-  --data CMAPSS \
-  --features M \
-  --seq_len 48 \
-  --label_len 24 \
-  --pred_len 12 \
-  --e_layers 3 \
-  --enc_in 14 \
-  --dec_in 14 \
-  --c_out 14 \
-  --des 'Exp' \
-  --d_model 512 \
-  --d_ff 512 \
-  --train_limit 100 \
-  --itr 1
+# # 2-3. seq_len=48, pred_len=12
+# python -u run.py \
+#   --is_training 1 \
+#   --root_path ./dataset/CMAPSSData/ \
+#   --data_path train_FD001_with_columns.csv \
+#   --model_id train_FD001_seq48_pred48 \
+#   --model $model_name \
+#   --data CMAPSS \
+#   --features M \
+#   --seq_len 48 \
+#   --label_len 24 \
+#   --pred_len 12 \
+#   --e_layers 3 \
+#   --enc_in 14 \
+#   --dec_in 14 \
+#   --c_out 14 \
+#   --des 'Exp' \
+#   --d_model 512 \
+#   --d_ff 512 \
+#   --train_limit 100 \
+#   --itr 1
