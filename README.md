@@ -1,4 +1,4 @@
-# 수정 사항
+# 수정 사항(2026.04.16.)
 ## utils/tools.py
   np.Inf → np.inf
 ## run.py
