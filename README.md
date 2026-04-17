@@ -8,6 +8,9 @@
 
 # 수정 사항(2026.04.17.)
 ## run.py
-  parser.add_argument('--short_id', action='store_true', default=False, help='use short model id for setting') \
-  if args.short_id: \
+```python
+parser.add_argument('--short_id', action='store_true', default=False, help='use short model id for setting')
+
+if args.short_id:
     setting = f"{args.model_id}_{ii}"
+```
